@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Certificates Online</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <style>
+
+            #header{
+                background-color: none;
+                width: 100%;
+                height: 100px;
+                vertical-align: middle;
+                color: white;
+            }
+            body{
+                margin: 0px;
+                font-family: Arial, Helvetica, sans-serif;
+                background-image: url(https://raw.githubusercontent.com/nitinskumavat/blockchain-certs/master/src/b1.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            #navbar{
+                margin: 0px;
+                list-style: none;
+            }
+            .navbut{
+                background-color: white;
+                color: darkblue;
+                float: right;
+                padding: 10px;
+                margin: 30px;
+                border-radius: 10px;
+                text-decoration: none;
+            }
+            #homebutton{
+                width: 50px;
+                height: 50px;
+                float: left;
+                margin: 20px;
+            }
+            h1{
+              margin: 20px;
+              margin-top: 30px;
+              float: left;
+            }
+            #box{
+                border: 1px solid black;
+                width: 60%;
+                margin-left: 20%;
+                margin-top: 2.5%;
+                background-color: #2d336e;
+                color: white;
+                border-radius: 10px;
+            }
+            #submit{
+                padding: 10px;
+                margin-top: 50px;
+                background-color: white;
+                border-radius: 5px;
+                border: none;
+            }
+            span{
+                color: red;
+            }
+            #margin{
+                margin: 10px;
+            }
+
+            #connectButton{
+                background-color: lightgreen;
+                color: white;
+                margin-left: 20%;
+                border: none;
+                border-radius: 5px;
+                margin-top: 2.5%;
+                padding: 10px;
+            }
+
+            #submission{
+                border: 1px solid black;
+                width: 60%;
+                margin-left: 20%;
+                margin-top: 2.5%;
+                background-color: #2d336e;
+                color: white;
+                border-radius: 10px;
+                padding: 10px;
+            }
+
+        </style>
+    </head>
+    <body id="body">
+        <div id="header">
+            <a href="certsonline1.html"><img id="homebutton" src="https://www.pngkit.com/png/full/31-316559_white-home-icon-no-background.png"></a>
+            <ul id="navbar">
+                <li><a class="navbut" href="certsonline1.html">Log Out</a></li>  
+                <li><a class="navbut" href="add1.html">Add Certificate</a></li>
+            </ul>
+        </div>
+        <button id="connectButton">Connect to Ethereum</button>
+        <div id='box'>
+            <div id="margin">
+                <label for="cert">Certificate: </label>
+                <input type="text" name="cert" id="cert" required></input>
+                <br><br>
+                <label for="name">Full Name: </label>
+                <input type="text" name="name" id="name" required></input>
+                <br><br>
+                <button id="submit">Submit</button>
+            </div>
+        </div>
+    </body>
+    <script src="dataHandling.js" type="module"></script>
+    <script>
+        function submission(){
+            var hash = ""
+            var division = document.createElement('div')
+            division.id = 'submission'
+            document.getElementById('body').appendChild(division)
+            var thash = document.createElement('h1')
+            division.appendChild(thash)
+            thash.innerHTML = "Transaction Hash:" + hash
+        }
+
+        document.getElementById('submit').addEventListener('click', submission())
+    </script>
+</html>

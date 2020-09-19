@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="https://www.freeiconspng.com/img/10258">
+        <title>Sign Up</title>
+        <meta charset="UTF-8">
+        <style>
+
+            #box{
+                height: 500px;
+                width: 500px;
+                background-color: darkblue;
+                border-radius: 10px;
+                margin-left: 450px;
+                margin-top: 150px;
+            }
+
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                color: white;
+            }
+
+            h1{
+                padding: 10px;
+                margin-left: 180px;
+            }
+            form{
+                margin: 20px;
+            }
+            .text{
+                padding: 5px;
+                padding-right: 50px;
+            }
+            .text:hover{
+                font-weight: 700;
+                cursor: auto;
+            }
+            #submit{
+                padding: 10px;
+                margin-top: 50px;
+            }
+
+            #submit:hover{
+                font-weight: 700;
+                cursor: pointer;
+            }
+            span{
+                color: red;
+                font-size: 10pt;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <h1>Sign Up</h1>
+            <?php 
+            
+            $fnameErr = $lnameErr = $emailErr = "";
+            $fname = $email = $lname = $school = $password = $confirm_password = "";
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              $fname = test_input($_POST["fname"]);
+              if (!preg_match("/^[a-zA-Z ]*$/",$fname)) {
+                $fnameErr = "\n * Only letters and whitespace allowed";
+              }
+              $lname = test_input($_POST["lname"]);
+              if (!preg_match("/^[a-zA-Z ]*$/",$lname)) {
+                $lnameErr = "\n * Only letters and whitespace allowed";
+              }
+              $email = test_input($_POST["email"]);
+              if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $emailErr = "\n * Invalid email format";
+              }
+              $school = test_input($_POST["school"]);
+              switch ($school) {
+                case 'Amman Baccalaureate School':
+                  if (!strpos($email, '@abs.edu.jo') !== false) {
+                    $emailErr = "\n * That is not the email prefix of " . $school;
+                  }
+                  break;
+              }
+              $password = test_input($_POST["password"]);
+              $confirm_password = test_input($_POST['confirm_password']);
+              if ($fnameErr != "" and $lnameErr != "" and $emailErr != "" and $password == $confirm_password) {
+                  header("Location: http://localhost/certsonline/getdata.php");
+              }
+            }
+            
+            function test_input($data) {
+              $data = trim($data);
+              $data = stripslashes($data);
+              $data = htmlspecialchars($data);
+              return $data;
+            }
+            ?>
+            <form action="getdata1.html" method="POST">
+                <label for="as">Sign up as teacher</label>
+                <input type="checkbox" id="as" name="as"></input>
+                <br><br>
+                <label for="fname">First Name</label>
+                <input type="text" name=fname id="fname" class="text" required value="<?php echo $fname;?>"></input><span><?php echo nl2br($fnameErr); ?></span>
+                <br><br>
+                <label for="lname">Last name</label>
+                <input type="text" name="lname" id="lname" class="text" required  value="<?php echo $lname;?>"></input><span><?php echo nl2br($lnameErr); ?></span>
+                <br><br>
+                <label for="email">School Email:</label>
+                <input type="email" name="email" id="email" class="text" required  value="<?php echo $email;?>"></input><span><?php echo nl2br($emailErr); ?></span>
+                <br><br>
+                <label for="school">School:</label>
+                <select id="school" name="school" required  value="<?php echo $school;?>">
+                    <option value="Amman Baccalaureate School">Amman Baccalaureate School</option>
+                </select>
+                <br><br>
+                <label for="password">New Password:</label>
+                <input type="password" name="password" id="password" class="text" required  value="<?php echo $password;?>"></input>
+                <br><br>
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="text" required  value="<?php echo $confirm_password;?>"></input>
+                <br><br>
+                
+                <input type="checkbox" name="keep" id="keep">Keep Me Signed In</input>
+                <br>
+                <input type="submit" name="submit" id="submit"></input>
+            </form>
+        </div>
+    </body>
+</html>

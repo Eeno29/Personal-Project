@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="https://www.freeiconspng.com/img/10258">
+        <title>Sign Up</title>
+        <meta charset="UTF-8">
+        <style>
+
+            #box{
+                height: 300px;
+                width: 500px;
+                background-color: darkblue;
+                border-radius: 10px;
+                margin-left: 450px;
+                margin-top: 150px;
+            }
+
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                color: white;
+            }
+
+            h1{
+                padding: 10px;
+                margin-left: 180px;
+            }
+            form{
+                margin: 20px;
+            }
+            .text{
+                padding: 5px;
+                padding-right: 50px;
+            }
+            .text:hover{
+                font-weight: 700;
+                cursor: auto;
+            }
+            #submit{
+                padding: 10px;
+                margin-top: 50px;
+            }
+
+            #submit:hover{
+                font-weight: 700;
+                cursor: pointer;
+            }
+            span{
+                color: red;
+                font-size: 10pt;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <h1>Sign In</h1>
+            <?php 
+            
+            $emailErr = "";
+            $email = $password = "";
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              $email = test_input($_POST["email"]);
+              if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $emailErr = "Invalid email format";
+                $f = false;
+              }
+              $password = test_input($_POST["password"]);
+            }
+                header("Location: http://localhost/getdata.php");
+            
+            function test_input($data) {
+              $data = trim($data);
+              $data = stripslashes($data);
+              $data = htmlspecialchars($data);
+              return $data;
+            }
+            ?>
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+                <label for="email">School Email:</label>
+                <input type="email" name="email" id="email" class="text" required  value="<?php echo $email;?>"></input><span><?php echo ' *' .  $emailErr; ?></span>
+                <br><br>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" class="text" required  value="<?php echo $password;?>"></input><span> *</span>
+                <br>
+                <input type="submit" name="submit" id="submit"></input>
+            </form>
+        </div>
+        <?php 
+            
+        ?>
+    </body>
+</html>
+
